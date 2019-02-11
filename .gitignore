@@ -1,0 +1,27 @@
+
+# vi
+*.swp
+
+# MacOS Finder
+.DS_Store
+._*
+
+# IDE
+*.idea
+
+/build
+
+# Error Logs
+*.err
+
+# Test files
+*.result
+*.temp
+
+# Keys and certificates
+*.cert
+*.csr
+*.key
+
+.cache/
+
