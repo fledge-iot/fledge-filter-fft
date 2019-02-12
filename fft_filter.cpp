@@ -157,7 +157,10 @@ float 	*data = new float[values->size() * 2];
 	 * Also determine the peak frequency in the data.
 	 */
 	vector<Datapoint *> datapoints;
-	int	aveSamples = values->size() / (2 * m_bands);
+	int	n_outputs = values->size() / 2;
+	int	first = (m_lowPass * n_outputs) / 100;
+	int	last = n_outputs - ((m_highPass * n_outputs) / 100);
+	int	aveSamples = (last - first) / m_bands;
 	int	band = 0;
 	double	sum = 0.0;
 	int	cnt = 0;
@@ -167,8 +170,7 @@ float 	*data = new float[values->size() * 2];
 	 * Now take the absolute values of the complex numbers to
 	 * get the amplitudes for each frequency
 	 */
-	FILE *fp = fopen("/tmp/fft.csv", "a");
-	for (int i = 0; i < values->size() / 2; i++)
+	for (int i = first; i < last; i++)
 	{
 		/*
 		 * The absolute value of a complex number is the square
@@ -177,7 +179,6 @@ float 	*data = new float[values->size() * 2];
 		 */
 		double absValue = sqrt((data[i * 2] * data[i * 2])
 			       	+ (data[(i * 2) + 1] * data[(i * 2) + 1]));
-		fprintf(fp, "%f%c", absValue, i + 1 < values->size() / 2 ? ',' : ' ');
 		if (absValue > peak)
 		{
 			peak = absValue;
@@ -196,10 +197,8 @@ float 	*data = new float[values->size() * 2];
 			band++;
 		}
 	}
-	fprintf(fp, "\n");
-	fclose(fp);
 	DatapointValue dpvPeak = DatapointValue(peakf);
-	datapoints.push_back(new Datapoint("Peak Fequency", dpvPeak));
+	// datapoints.push_back(new Datapoint("Peak Fequency", dpvPeak));
 	out.push_back(new Reading(m_asset + " FFT", datapoints));
 
 	delete[] data;
@@ -226,7 +225,14 @@ void FFTFilter::reconfigure(const string& newConfig)
  */
 void FFTFilter::handleConfig(const ConfigCategory& config)
 {
-	setAsset(config.getValue("asset"));
-	m_bands = strtol(config.getValue("bands").c_str(), NULL, 10);
-	m_samples = strtol(config.getValue("samples").c_str(), NULL, 10);
+	if (config.itemExists("asset"))
+		setAsset(config.getValue("asset"));
+	if (config.itemExists("bands"))
+		m_bands = strtol(config.getValue("bands").c_str(), NULL, 10);
+	if (config.itemExists("samples"))
+		m_samples = strtol(config.getValue("samples").c_str(), NULL, 10);
+	if (config.itemExists("lowPass"))
+		m_lowPass = strtol(config.getValue("lowPass").c_str(), NULL, 10);
+	if (config.itemExists("highPass"))
+		m_highPass = strtol(config.getValue("highPass").c_str(), NULL, 10);
 }

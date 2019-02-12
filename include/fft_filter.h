@@ -42,6 +42,8 @@ class FFTFilter : public FogLampFilter {
 		std::string		m_asset;
 		int			m_samples;
 		int			m_bands;
+		int			m_lowPass;
+		int			m_highPass;
 		std::map<std::string, std::vector<double>* >
 					m_buffer;
 		std::mutex		m_configMutex;

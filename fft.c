@@ -14,7 +14,7 @@ void FFT (float data[], unsigned long number_of_complex_samples, int isign)
 {
 //variables for trigonometric recurrences
 unsigned long n,mmax,m,j,istep,i;
-double wtemp,wr,wpr,wpi,wi,theta,tempi;
+double wtemp,wr,wpr,wpi,wi,theta,tempi, tempr;
 
 	//the complex array is real+complex so the array
 	//as a size n = 2* number of complex samples

@@ -4,6 +4,19 @@ FogLAMP "FFT" C++ Filter plugin
 
 A filter that applies a FFT algorithm to a set of readings.
 
+Data is return in a single reading with a set of datapoints that each
+represent the average amplitude for a band of frequencies. These bands are
+created by dividing the frequency space into a number of equal ranges after
+first applying a low and high frequency filter to discard a percentage of
+the low and high frequency results.
+
+E.g. if the lowPass filter is set to 15% and the highPass filter is set
+to 10%, with the number of bands set to 5, the lower 15% of results are
+discarded and the upper 10% are discarded. The remaining 75% of readings
+are then divided into 5 equal bands, each of which representing 15% of the
+original result space. The results within each of the 15% bands are then
+averaged to produce a result for the frequecy band.
+
 Configuration
 -------------
 
@@ -17,6 +30,12 @@ bands
 
 samples
   The number of input samples to use. This must be a power of 2.
+
+lowPass
+  A percentage of low frequencies to discard, effectively reducing the range of frequencies to examine
+
+highPass
+  A percentage of low frequencies to discard, effectively reducing the range of frequencies to examine
 
 Build
 -----
