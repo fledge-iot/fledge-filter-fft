@@ -4,6 +4,8 @@ FogLAMP "FFT" C++ Filter plugin
 
 A filter that applies a FFT algorithm to a set of readings.
 
+*This is a work in progress filter and shoudl not be considered for production use*
+
 Data is return in a single reading with a set of datapoints that each
 represent the average amplitude for a band of frequencies. These bands are
 created by dividing the frequency space into a number of equal ranges after
