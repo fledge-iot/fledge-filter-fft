@@ -165,7 +165,18 @@ float 	*data = new float[values->size() * 2];
 	double	sum = 0.0;
 	int	cnt = 0;
 	double	peak = 0.0;
-	long	peakf = 0;
+	double	square = 0.0;
+
+	enum ResultsType {AVERAGE, PEAK, SUM, RMS};
+	ResultsType results = AVERAGE;
+	if (m_results.compare("average") == 0)
+		results = AVERAGE;
+	else if (m_results.compare("peak") == 0)
+		results = PEAK;
+	else if (m_results.compare("sum") == 0)
+		results = SUM;
+	else if (m_results.compare("rms") == 0)
+		results = RMS;
 	/*
 	 * Now take the absolute values of the complex numbers to
 	 * get the amplitudes for each frequency
@@ -182,23 +193,39 @@ float 	*data = new float[values->size() * 2];
 		if (absValue > peak)
 		{
 			peak = absValue;
-			peakf = i;
 		}
 		sum += absValue;
+		square += (absValue * absValue);
 		cnt++;
 		if (cnt == aveSamples)
 		{
 			char buf[40];
 			snprintf(buf, sizeof(buf), "Band %02d", band);
-			DatapointValue bdpv = DatapointValue(sum / aveSamples);
+			double value;
+			switch (results)
+			{
+				case AVERAGE:
+					value = sum / aveSamples;
+					break;
+				case PEAK:
+					value = peak;
+					break;
+				case SUM:
+					value = sum;
+					break;
+				case RMS:
+					value = sqrt(square / cnt);
+					break;
+			}
+			DatapointValue bdpv(value);
 			datapoints.push_back(new Datapoint(buf, bdpv));
+			peak = 0.0;
 			sum = 0.0;
+			square = 0.0;
 			cnt = 0;
 			band++;
 		}
 	}
-	DatapointValue dpvPeak = DatapointValue(peakf);
-	// datapoints.push_back(new Datapoint("Peak Fequency", dpvPeak));
 	out.push_back(new Reading(m_asset + " FFT", datapoints));
 
 	delete[] data;
@@ -231,6 +258,8 @@ void FFTFilter::handleConfig(const ConfigCategory& config)
 		m_bands = strtol(config.getValue("bands").c_str(), NULL, 10);
 	if (config.itemExists("samples"))
 		m_samples = strtol(config.getValue("samples").c_str(), NULL, 10);
+	if (config.itemExists("result"))
+		setResults(config.getValue("result"));
 	if (config.itemExists("lowPass"))
 		m_lowPass = strtol(config.getValue("lowPass").c_str(), NULL, 10);
 	if (config.itemExists("highPass"))

@@ -47,6 +47,11 @@
 				"\"type\": \"integer\", " \
 				"\"default\": \"0\", \"order\" : \"5\", \"displayName\" : \"High Frequency Reject %\", " \
 			        "\"minimum\": \"0\", \"maximum\":\"100\"	} " \
+			 "\"result\": {\"description\": \"The result data\", " \
+				"\"type\": \"enumeration\", " \
+				"\"options\": [ \"average\", \"peak\", \"sum\", \"rms\" ], " \
+				"\"default\": \"average\", \"order\" : \"6\", " \
+				"\"displayName\" : \"Result Data\" }, " \
 			"}"
 
 using namespace std;
