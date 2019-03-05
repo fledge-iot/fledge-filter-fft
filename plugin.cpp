@@ -37,20 +37,20 @@
 			        "\"minimum\": \"3\", \"maximum\":\"10\"	}, " \
 			 "\"samples\": {\"description\": \"The number of samples to use\", " \
 				"\"type\": \"integer\", " \
-				"\"default\": \"64\", \"order\" : \"3\", " \
+				"\"default\": \"64\", \"order\" : \"4\", " \
 				"\"displayName\" : \"No. of samples per FFT\" }, " \
 			 "\"lowPass\": {\"description\": \"Low Frequency Discard %\", " \
 				"\"type\": \"integer\", " \
-				"\"default\": \"0\", \"order\" : \"4\", \"displayName\" : \"Low Frequency Reject %\", " \
+				"\"default\": \"0\", \"order\" : \"5\", \"displayName\" : \"Low Frequency Reject %\", " \
 			        "\"minimum\": \"0\", \"maximum\":\"100\"	}, " \
 			 "\"highPass\": {\"description\": \"High Frequency Discard %\", " \
 				"\"type\": \"integer\", " \
-				"\"default\": \"0\", \"order\" : \"5\", \"displayName\" : \"High Frequency Reject %\", " \
+				"\"default\": \"0\", \"order\" : \"6\", \"displayName\" : \"High Frequency Reject %\", " \
 			        "\"minimum\": \"0\", \"maximum\":\"100\"	} " \
 			 "\"result\": {\"description\": \"The result data\", " \
 				"\"type\": \"enumeration\", " \
 				"\"options\": [ \"average\", \"peak\", \"sum\", \"rms\" ], " \
-				"\"default\": \"average\", \"order\" : \"6\", " \
+				"\"default\": \"average\", \"order\" : \"3\", " \
 				"\"displayName\" : \"Result Data\" }, " \
 			"}"
 

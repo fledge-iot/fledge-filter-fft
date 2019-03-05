@@ -30,6 +30,13 @@ asset
 bands
   The number of frequency bands to define the resultant FFT output into
 
+result
+  The data that should be returned for each band. This may be one of
+  average, sum, peak or rms. Selecting average will return the average
+  amplitude within the band, sum returns the sum of all amplitudes within
+  the frequency band, peak the greatest amplitude and rms the root mean
+  square of the amplitudes within the band.
+
 samples
   The number of input samples to use. This must be a power of 2.
 
