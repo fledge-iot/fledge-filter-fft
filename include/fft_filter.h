@@ -39,11 +39,13 @@ class FFTFilter : public FogLampFilter {
 		void			processFFT(std::vector<Reading *>& out);
 		void			runFFT(std::vector<Reading *>& out, const std::string& dpName, std::vector<double> *values);
 		void			setAsset(const std::string& asset) { m_asset = asset; };
+		void			setResults(const std::string& results) { m_results = results; };
 		std::string		m_asset;
 		int			m_samples;
 		int			m_bands;
 		int			m_lowPass;
 		int			m_highPass;
+		std::string		m_results;
 		std::map<std::string, std::vector<double>* >
 					m_buffer;
 		std::mutex		m_configMutex;
