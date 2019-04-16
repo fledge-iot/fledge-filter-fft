@@ -19,40 +19,70 @@
 #include <fft_filter.h>
 #include <version.h>
 
+#define TO_STRING(...) DEFER(TO_STRING_)(__VA_ARGS__)
+#define DEFER(x) x
+#define TO_STRING_(...) #__VA_ARGS__
+#define QUOTE(...) TO_STRING(__VA_ARGS__)
+
 #define FILTER_NAME "fft"
-#define DEFAULT_CONFIG "{\"plugin\" : { \"description\" : \"Variable readings collection fft filter\", " \
-                       		"\"type\" : \"string\", " \
-				"\"default\" : \"" FILTER_NAME "\",\"readonly\" : \"true\" }, " \
-			 "\"enable\": {\"description\": \"A switch that can be used to enable or disable execution of " \
-					 "the fft filter.\", " \
-				"\"type\": \"boolean\", " \
-				"\"displayName\": \"Enabled\", " \
-				"\"default\": \"false\" }, " \
-			 "\"asset\": {\"description\": \"Asset to perform FFT on\", " \
-				"\"type\": \"string\", " \
-				"\"default\": \"\", \"order\" : \"1\", \"displayName\" : \"Asset to analysis\" }, " \
-			 "\"bands\": {\"description\": \"Number of frequency bands\", " \
-				"\"type\": \"integer\", " \
-				"\"default\": \"3\", \"order\" : \"2\", \"displayName\" : \"Frequency Bands\", " \
-			        "\"minimum\": \"3\", \"maximum\":\"10\"	}, " \
-			 "\"samples\": {\"description\": \"The number of samples to use\", " \
-				"\"type\": \"integer\", " \
-				"\"default\": \"64\", \"order\" : \"4\", " \
-				"\"displayName\" : \"No. of samples per FFT\" }, " \
-			 "\"lowPass\": {\"description\": \"Low Frequency Discard %\", " \
-				"\"type\": \"integer\", " \
-				"\"default\": \"0\", \"order\" : \"5\", \"displayName\" : \"Low Frequency Reject %\", " \
-			        "\"minimum\": \"0\", \"maximum\":\"100\"	}, " \
-			 "\"highPass\": {\"description\": \"High Frequency Discard %\", " \
-				"\"type\": \"integer\", " \
-				"\"default\": \"0\", \"order\" : \"6\", \"displayName\" : \"High Frequency Reject %\", " \
-			        "\"minimum\": \"0\", \"maximum\":\"100\"	} " \
-			 "\"result\": {\"description\": \"The result data\", " \
-				"\"type\": \"enumeration\", " \
-				"\"options\": [ \"average\", \"peak\", \"sum\", \"rms\" ], " \
-				"\"default\": \"average\", \"order\" : \"3\", " \
-				"\"displayName\" : \"Result Data\" }, " \
-			"}"
+const char *def_cfg = QUOTE({
+		"plugin" : { 
+			"description" : "Variable readings collection fft filter",
+			"type" : "string", 
+			"default" : FILTER_NAME,
+			"readonly" : "true"
+			},
+		"enable": {
+			"description": "A switch that can be used to enable or disable execution of the fft filter.", 
+			"type": "boolean",
+			"displayName": "Enabled",
+			"default": "false"
+			},
+		"asset": {
+			"description": "Asset to perform FFT on",
+			"type": "string",
+			"default": "",
+			"order" : "1",
+			"displayName" : "Asset to analysis"
+			},
+		"bands": {
+			"description": "Number of frequency bands",
+			"type": "integer",
+			"default": "3", "order" : "2", "displayName" : "Frequency Bands",
+			"minimum": "3",
+			"maximum":"10"
+			},
+		"samples": {
+			"description": "The number of samples to use",
+			"type": "integer",
+			"default": "64", "order" : "4",
+			"displayName" : "No. of samples per FFT" },
+		"lowPass": {
+			"description": "Low Frequency Discard %",
+			"type": "integer",
+			"default": "0",
+			"order" : "5",
+			"displayName" : "Low Frequency Reject %",
+			"minimum": "0",
+			"maximum":"100"
+			},
+		 "highPass": {
+			"description": "High Frequency Discard %",
+			"type": "integer",
+			"default": "0",
+			"order" : "6",
+			"displayName" : "High Frequency Reject %",
+			"minimum": "0",
+			"maximum":"100"
+			 },
+		"result": {
+			"description": "The result data",
+			"type": "enumeration",
+			"options": [ "average", "peak", "sum", "rms" ],
+			"default": "average", "order" : "3",
+			"displayName" : "Result Data"
+			}
+	});
 
 using namespace std;
 
@@ -70,7 +100,7 @@ static PLUGIN_INFORMATION info = {
         0,                        // Flags
         PLUGIN_TYPE_FILTER,       // Type
         "1.0.0",                  // Interface version
-	DEFAULT_CONFIG	          // Default plugin configuration
+	def_cfg	            	  // Default plugin configuration
 };
 
 /**
