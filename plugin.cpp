@@ -78,7 +78,7 @@ const char *def_cfg = QUOTE({
 		"result": {
 			"description": "The result data",
 			"type": "enumeration",
-			"options": [ "average", "peak", "sum", "rms" ],
+			"options": [ "average", "peak", "sum", "rms", "spectrum" ],
 			"default": "average", "order" : "3",
 			"displayName" : "Result Data"
 			}
