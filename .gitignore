@@ -1,4 +1,3 @@
-
 # vi
 *.swp
 
@@ -6,22 +5,8 @@
 .DS_Store
 ._*
 
-# IDE
-*.idea
+# build
+build
 
-/build
-
-# Error Logs
-*.err
-
-# Test files
-*.result
-*.temp
-
-# Keys and certificates
-*.cert
-*.csr
-*.key
-
-.cache/
-
+# packaging
+packages/build
