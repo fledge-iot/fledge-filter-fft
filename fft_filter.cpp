@@ -166,8 +166,9 @@ float 	*data = new float[values->size() * 2];
 	int	cnt = 0;
 	double	peak = 0.0;
 	double	square = 0.0;
+	vector<double> spectrum;
 
-	enum ResultsType {AVERAGE, PEAK, SUM, RMS};
+	enum ResultsType {AVERAGE, PEAK, SUM, RMS, SPECTRUM};
 	ResultsType results = AVERAGE;
 	if (m_results.compare("average") == 0)
 		results = AVERAGE;
@@ -177,6 +178,8 @@ float 	*data = new float[values->size() * 2];
 		results = SUM;
 	else if (m_results.compare("rms") == 0)
 		results = RMS;
+	else if (m_results.compare("spectrum") == 0)
+		results = SPECTRUM;
 	/*
 	 * Now take the absolute values of the complex numbers to
 	 * get the amplitudes for each frequency
@@ -190,41 +193,53 @@ float 	*data = new float[values->size() * 2];
 		 */
 		double absValue = sqrt((data[i * 2] * data[i * 2])
 			       	+ (data[(i * 2) + 1] * data[(i * 2) + 1]));
-		if (absValue > peak)
+		if (results != SPECTRUM)
 		{
-			peak = absValue;
-		}
-		sum += absValue;
-		square += (absValue * absValue);
-		cnt++;
-		if (cnt == aveSamples)
-		{
-			char buf[40];
-			snprintf(buf, sizeof(buf), "Band %02d", band);
-			double value;
-			switch (results)
+			if (absValue > peak)
 			{
-				case AVERAGE:
-					value = sum / aveSamples;
-					break;
-				case PEAK:
-					value = peak;
-					break;
-				case SUM:
-					value = sum;
-					break;
-				case RMS:
-					value = sqrt(square / cnt);
-					break;
+				peak = absValue;
 			}
-			DatapointValue bdpv(value);
-			datapoints.push_back(new Datapoint(buf, bdpv));
-			peak = 0.0;
-			sum = 0.0;
-			square = 0.0;
-			cnt = 0;
-			band++;
+			sum += absValue;
+			square += (absValue * absValue);
+			cnt++;
+			if (cnt == aveSamples)
+			{
+				char buf[40];
+				snprintf(buf, sizeof(buf), "Band %02d", band);
+				double value;
+				switch (results)
+				{
+					case AVERAGE:
+						value = sum / aveSamples;
+						break;
+					case PEAK:
+						value = peak;
+						break;
+					case SUM:
+						value = sum;
+						break;
+					case RMS:
+						value = sqrt(square / cnt);
+						break;
+				}
+				DatapointValue bdpv(value);
+				datapoints.push_back(new Datapoint(buf, bdpv));
+				peak = 0.0;
+				sum = 0.0;
+				square = 0.0;
+				cnt = 0;
+				band++;
+			}
 		}
+		else
+		{
+			spectrum.push_back(absValue);
+		}
+	}
+	if (results == SPECTRUM)
+	{
+		DatapointValue sdpv(spectrum);
+		datapoints.push_back(new Datapoint("spectrum", sdpv));
 	}
 	out.push_back(new Reading(m_asset + " FFT", datapoints));
 

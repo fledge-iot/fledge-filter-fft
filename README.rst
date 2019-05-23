@@ -4,8 +4,6 @@ FogLAMP "FFT" C++ Filter plugin
 
 A filter that applies a FFT algorithm to a set of readings.
 
-**This is a work in progress filter and should not be considered for production use**
-
 Data is return in a single reading with a set of datapoints that each
 represent the average amplitude for a band of frequencies. These bands are
 created by dividing the frequency space into a number of equal ranges after
@@ -35,7 +33,10 @@ result
   average, sum, peak or rms. Selecting average will return the average
   amplitude within the band, sum returns the sum of all amplitudes within
   the frequency band, peak the greatest amplitude and rms the root mean
-  square of the amplitudes within the band.
+  square of the amplitudes within the band. Setting the output type to
+  be spectrum will result in the full FFT spectrum data begn written.
+  Spectrum data however can not be sent to all north destinations as it
+  is not supported natively on all the systems FogLAMP can send data to.
 
 samples
   The number of input samples to use. This must be a power of 2.
