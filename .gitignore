@@ -8,5 +8,5 @@
 # build
 build
 
-# packaging
-packages/build
+# IDE
+*.idea
