@@ -53,7 +53,7 @@ const char *def_cfg = QUOTE({
 			"type": "integer",
 			"default": "64", "order" : "4",
 			"displayName" : "No. of samples per FFT",
-			"rule" : "value != 0 and (value & (value - 1)) == 0"
+			"rule" : "value > 2 and (value & (value - 1)) == 0"
 	       		},
 		"lowPass": {
 			"description": "Low Frequency Discard %",
