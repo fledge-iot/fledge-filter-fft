@@ -205,7 +205,7 @@ float 	*data = new float[values->size() * 2];
 			if (cnt == aveSamples)
 			{
 				char buf[40];
-				snprintf(buf, sizeof(buf), "Band %02d", band);
+				snprintf(buf, sizeof(buf), "%s%02d", m_prefix.c_str(), band);
 				double value;
 				switch (results)
 				{
@@ -271,6 +271,8 @@ int n_samples = 0;
 
 	if (config.itemExists("asset"))
 		setAsset(config.getValue("asset"));
+	if (config.itemExists("prefix"))
+		setPrefix(config.getValue("prefix"));
 	if (config.itemExists("bands"))
 		m_bands = strtol(config.getValue("bands").c_str(), NULL, 10);
 	if (config.itemExists("samples"))
