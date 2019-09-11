@@ -2,7 +2,7 @@
 #define _FFT_FILTER_H
 
 /*
- * FogLAMP "fft" filter plugin.
+ * Fledge "fft" filter plugin.
  *
  * Copyright (c) 2019 Dianomic Systems
  *
@@ -24,7 +24,7 @@ extern "C" void FFT (float data[], unsigned long number_of_complex_samples, int 
 
 /**
  */
-class FFTFilter : public FogLampFilter {
+class FFTFilter : public FledgeFilter {
 	public:
 		FFTFilter(const std::string& filterName,
                         ConfigCategory& filterConfig,

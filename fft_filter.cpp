@@ -1,5 +1,5 @@
 /*
- * FogLAMP "fft" filter plugin.
+ * Fledge "fft" filter plugin.
  *
  * Copyright (c) 2019 Dianomic Systems
  *
@@ -24,7 +24,7 @@ FFTFilter::FFTFilter(const std::string& filterName,
 			       ConfigCategory& filterConfig,
                                OUTPUT_HANDLE *outHandle,
                                OUTPUT_STREAM out) :
-                                  FogLampFilter(filterName, filterConfig,
+                                  FledgeFilter(filterName, filterConfig,
                                                 outHandle, out)
 {
 	handleConfig(filterConfig);

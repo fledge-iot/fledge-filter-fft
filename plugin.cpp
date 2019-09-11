@@ -1,5 +1,5 @@
 /*
- * FogLAMP "fft" filter plugin.
+ * Fledge "fft" filter plugin.
  *
  * Copyright (c) 2019 Dianomic Systems
  *

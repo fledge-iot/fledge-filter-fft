@@ -1,5 +1,5 @@
 =====================================
-FogLAMP "FFT" C++ Filter plugin
+Fledge "FFT" C++ Filter plugin
 =====================================
 
 A filter that applies a FFT algorithm to a set of readings.
@@ -36,7 +36,7 @@ result
   square of the amplitudes within the band. Setting the output type to
   be spectrum will result in the full FFT spectrum data begn written.
   Spectrum data however can not be sent to all north destinations as it
-  is not supported natively on all the systems FogLAMP can send data to.
+  is not supported natively on all the systems Fledge can send data to.
 
 samples
   The number of input samples to use. This must be a power of 2.
@@ -49,7 +49,7 @@ highPass
 
 Build
 -----
-To build FogLAMP "FFT" C++ filter plugin:
+To build Fledge "FFT" C++ filter plugin:
 
 .. code-block:: console
 
@@ -58,27 +58,27 @@ To build FogLAMP "FFT" C++ filter plugin:
   $ cmake ..
   $ make
 
-- By default the FogLAMP develop package header files and libraries
-  are expected to be located in /usr/include/foglamp and /usr/lib/foglamp
-- If **FOGLAMP_ROOT** env var is set and no -D options are set,
+- By default the Fledge develop package header files and libraries
+  are expected to be located in /usr/include/fledge and /usr/lib/fledge
+- If **FLEDGE_ROOT** env var is set and no -D options are set,
   the header files and libraries paths are pulled from the ones under the
-  FOGLAMP_ROOT directory.
-  Please note that you must first run 'make' in the FOGLAMP_ROOT directory.
+  FLEDGE_ROOT directory.
+  Please note that you must first run 'make' in the FLEDGE_ROOT directory.
 
 You may also pass one or more of the following options to cmake to override 
 this default behaviour:
 
-- **FOGLAMP_SRC** sets the path of a FogLAMP source tree
-- **FOGLAMP_INCLUDE** sets the path to FogLAMP header files
-- **FOGLAMP_LIB sets** the path to FogLAMP libraries
-- **FOGLAMP_INSTALL** sets the installation path of Random plugin
+- **FLEDGE_SRC** sets the path of a Fledge source tree
+- **FLEDGE_INCLUDE** sets the path to Fledge header files
+- **FLEDGE_LIB sets** the path to Fledge libraries
+- **FLEDGE_INSTALL** sets the installation path of Random plugin
 
 NOTE:
- - The **FOGLAMP_INCLUDE** option should point to a location where all the FogLAMP 
+ - The **FLEDGE_INCLUDE** option should point to a location where all the Fledge 
    header files have been installed in a single directory.
- - The **FOGLAMP_LIB** option should point to a location where all the FogLAMP
+ - The **FLEDGE_LIB** option should point to a location where all the Fledge
    libraries have been installed in a single directory.
- - 'make install' target is defined only when **FOGLAMP_INSTALL** is set
+ - 'make install' target is defined only when **FLEDGE_INSTALL** is set
 
 Examples:
 
@@ -86,24 +86,24 @@ Examples:
 
   $ cmake ..
 
-- no options and FOGLAMP_ROOT set
+- no options and FLEDGE_ROOT set
 
-  $ export FOGLAMP_ROOT=/some_foglamp_setup
+  $ export FLEDGE_ROOT=/some_fledge_setup
 
   $ cmake ..
 
-- set FOGLAMP_SRC
+- set FLEDGE_SRC
 
-  $ cmake -DFOGLAMP_SRC=/home/source/develop/FogLAMP  ..
+  $ cmake -DFLEDGE_SRC=/home/source/develop/Fledge  ..
 
-- set FOGLAMP_INCLUDE
+- set FLEDGE_INCLUDE
 
-  $ cmake -DFOGLAMP_INCLUDE=/dev-package/include ..
-- set FOGLAMP_LIB
+  $ cmake -DFLEDGE_INCLUDE=/dev-package/include ..
+- set FLEDGE_LIB
 
-  $ cmake -DFOGLAMP_LIB=/home/dev/package/lib ..
-- set FOGLAMP_INSTALL
+  $ cmake -DFLEDGE_LIB=/home/dev/package/lib ..
+- set FLEDGE_INSTALL
 
-  $ cmake -DFOGLAMP_INSTALL=/home/source/develop/FogLAMP ..
+  $ cmake -DFLEDGE_INSTALL=/home/source/develop/Fledge ..
 
-  $ cmake -DFOGLAMP_INSTALL=/usr/local/foglamp ..
+  $ cmake -DFLEDGE_INSTALL=/usr/local/fledge ..
