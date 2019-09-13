@@ -19,10 +19,6 @@
 #include <fft_filter.h>
 #include <version.h>
 
-#define TO_STRING(...) DEFER(TO_STRING_)(__VA_ARGS__)
-#define DEFER(x) x
-#define TO_STRING_(...) #__VA_ARGS__
-#define QUOTE(...) TO_STRING(__VA_ARGS__)
 
 #define FILTER_NAME "fft"
 const char *def_cfg = QUOTE({
@@ -48,20 +44,32 @@ const char *def_cfg = QUOTE({
 		"bands": {
 			"description": "Number of frequency bands",
 			"type": "integer",
-			"default": "3", "order" : "2", "displayName" : "Frequency Bands",
+			"default": "3",
+			"order" : "3",
+			"displayName" : "Frequency Bands",
 			"minimum": "3",
 			"maximum":"10"
+			},
+		"prefix": {
+			"description": "Prefix for the band data points",
+			"type": "string",
+			"default": "Band",
+			"order" : "4",
+			"displayName" : "Band Prefix"
 			},
 		"samples": {
 			"description": "The number of samples to use",
 			"type": "integer",
-			"default": "64", "order" : "4",
-			"displayName" : "No. of samples per FFT" },
+			"default": "64",
+			"order" : "5",
+			"displayName" : "No. of samples per FFT",
+			"rule" : "value > 2 and (value & (value - 1)) == 0"
+	       		},
 		"lowPass": {
 			"description": "Low Frequency Discard %",
 			"type": "integer",
 			"default": "0",
-			"order" : "5",
+			"order" : "6",
 			"displayName" : "Low Frequency Reject %",
 			"minimum": "0",
 			"maximum":"100"
@@ -70,7 +78,7 @@ const char *def_cfg = QUOTE({
 			"description": "High Frequency Discard %",
 			"type": "integer",
 			"default": "0",
-			"order" : "6",
+			"order" : "7",
 			"displayName" : "High Frequency Reject %",
 			"minimum": "0",
 			"maximum":"100"
@@ -79,7 +87,8 @@ const char *def_cfg = QUOTE({
 			"description": "The result data",
 			"type": "enumeration",
 			"options": [ "average", "peak", "sum", "rms", "spectrum" ],
-			"default": "average", "order" : "3",
+			"default": "average",
+			"order" : "2",
 			"displayName" : "Result Data"
 			}
 	});

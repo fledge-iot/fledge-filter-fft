@@ -205,7 +205,7 @@ float 	*data = new float[values->size() * 2];
 			if (cnt == aveSamples)
 			{
 				char buf[40];
-				snprintf(buf, sizeof(buf), "Band %02d", band);
+				snprintf(buf, sizeof(buf), "%s%02d", m_prefix.c_str(), band);
 				double value;
 				switch (results)
 				{
@@ -267,16 +267,30 @@ void FFTFilter::reconfigure(const string& newConfig)
  */
 void FFTFilter::handleConfig(const ConfigCategory& config)
 {
+int n_samples = 0;
+
 	if (config.itemExists("asset"))
 		setAsset(config.getValue("asset"));
+	if (config.itemExists("prefix"))
+		setPrefix(config.getValue("prefix"));
 	if (config.itemExists("bands"))
 		m_bands = strtol(config.getValue("bands").c_str(), NULL, 10);
 	if (config.itemExists("samples"))
-		m_samples = strtol(config.getValue("samples").c_str(), NULL, 10);
+		n_samples = strtol(config.getValue("samples").c_str(), NULL, 10);
 	if (config.itemExists("result"))
 		setResults(config.getValue("result"));
 	if (config.itemExists("lowPass"))
 		m_lowPass = strtol(config.getValue("lowPass").c_str(), NULL, 10);
 	if (config.itemExists("highPass"))
 		m_highPass = strtol(config.getValue("highPass").c_str(), NULL, 10);
+
+	if (n_samples != 0 && (n_samples & (n_samples - 1)) == 0)
+	{
+		m_samples = n_samples;
+	}
+	else
+	{
+		Logger::getLogger()->fatal("The value of samples must be a power of 2, FFT filter disabled");
+		m_enabled = false;
+	}
 }
