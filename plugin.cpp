@@ -39,7 +39,8 @@ const char *def_cfg = QUOTE({
 			"type": "string",
 			"default": "",
 			"order" : "1",
-			"displayName" : "Asset to analysis"
+			"displayName" : "Asset to analysis",
+			"mandatory": "true"
 			},
 		"bands": {
 			"description": "Number of frequency bands",
