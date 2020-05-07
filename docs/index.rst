@@ -11,7 +11,7 @@ Data is added as a new asset which is named as the sampled asset with " FFT" app
 
   - the average in the band, 
 
-  - the peak, 
+  - the peak
     
   - the RMS 
     
@@ -53,4 +53,4 @@ FFT filters are added in the same way as any other filters.
 
     - **Low Frequency Reject %**: A percentage of low frequencies to discard, effectively reducing the range of frequencies to examine
 
-    - **High Frequency Reject %**: A percentage of low frequencies to discard, effectively reducing the range of frequencies to examine
+    - **High Frequency Reject %**: A percentage of high frequencies to discard, effectively reducing the range of frequencies to examine
