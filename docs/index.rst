@@ -43,7 +43,7 @@ FFT filters are added in the same way as any other filters.
     | |fft_2| |
     +---------+
 
-    - **Result Data**: The data that should be returned for each band. This may be one of average, sum, peak, RMS or spectrum. Selecting average will return the average amplitude within the band, sum returns the sum of all amplitudes within the frequency band, peak the greatest amplitude and RMS the root mean square of the amplitudes within the band. Setting the output type to be spectrum will result in the full FFT spectrum data being written.  Spectrum data however can not be sent to all north destinations as it is not supported natively on all the systems Fledge can send data to.
+    - **Result Data**: The data that should be returned for each band. This may be one of average, sum, peak, rms or spectrum. Selecting average will return the average amplitude within the band, sum returns the sum of all amplitudes within the frequency band, peak the greatest amplitude and rms the root mean square of the amplitudes within the band. Setting the output type to be spectrum will result in the full FFT spectrum data being written.  Spectrum data however can not be sent to all north destinations as it is not supported natively on all the systems Fledge can send data to.
 
     - **Frequency Bands**: The number of frequency bands to divide the resultant FFT output into
 
