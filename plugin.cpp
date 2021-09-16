@@ -21,7 +21,7 @@
 
 
 #define FILTER_NAME "fft"
-const char *def_cfg = QUOTE({
+static const char *def_cfg = QUOTE({
 		"plugin" : { 
 			"description" : "Variable readings collection fft filter",
 			"type" : "string", 
