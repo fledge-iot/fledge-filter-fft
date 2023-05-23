@@ -36,8 +36,8 @@ class FFTFilter : public FledgeFilter {
 	private:
 		void 			handleConfig(const ConfigCategory& conf);
 		void			addFFTAsset(Reading *);
-		void			processFFT(std::vector<Reading *>& out, unsigned long timestamp);
-		void			runFFT(std::vector<Reading *>& out, const std::string& dpName, std::vector<double> *values, unsigned long timestamp);
+		void			processFFT(std::vector<Reading *>& out, struct timeval timestamp);
+		void			runFFT(std::vector<Reading *>& out, const std::string& dpName, std::vector<double> *values, struct timeval timestamp);
 		void			setAsset(const std::string& asset) { m_asset = asset; };
 		void			setPrefix(const std::string& prefix) { m_prefix = prefix; };
 		void			setResults(const std::string& results) { m_results = results; };

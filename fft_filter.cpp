@@ -55,12 +55,12 @@ void FFTFilter::ingest(vector<Reading *> *readings, vector<Reading *>& out)
 		if ((*reading)->getAssetName().compare(m_asset) == 0)
 		{
 			addFFTAsset(*reading);
-			unsigned long ts = 0;
+			struct timeval tv;	
 			if(*reading != nullptr)
 			{
-				ts = (*reading)->getTimestamp();
+				(*reading)->getUserTimestamp(&tv);
 			}
-			processFFT(out, ts);
+			processFFT(out, tv);
 		}
 		else
 		{
@@ -110,9 +110,9 @@ void FFTFilter::addFFTAsset(Reading *reading)
  * data set.
  *
  * @param out		The output array for FFT data
- * @patram timestamp    The timestamp of reading
+ * @param timestamp    The timestamp of reading
  */
-void FFTFilter::processFFT(vector<Reading *>& out, unsigned long timestamp)
+void FFTFilter::processFFT(vector<Reading *>& out, struct timeval timestamp)
 {
 	for (map<string, vector<double>* >::iterator it = m_buffer.begin();
 					it != m_buffer.end(); it++)
@@ -135,7 +135,7 @@ void FFTFilter::processFFT(vector<Reading *>& out, unsigned long timestamp)
  * @param values	The vector of samples on which we will run the FFT
  * @param timestamp	The timestamp of the reading
  */
-void FFTFilter::runFFT(vector<Reading *>& out, const string& dpName, vector<double> *values, unsigned long timestamp)
+void FFTFilter::runFFT(vector<Reading *>& out, const string& dpName, vector<double> *values, struct timeval timestamp)
 {
 float 	*data = new float[values->size() * 2];
 
@@ -249,7 +249,7 @@ float 	*data = new float[values->size() * 2];
 		datapoints.push_back(new Datapoint("spectrum", sdpv));
 	}
 	Reading *ptr = new Reading(m_asset + " FFT", datapoints);
-	ptr->setTimestamp(timestamp);
+	ptr->setUserTimestamp(timestamp);
 	out.push_back(ptr);
 
 	delete[] data;
